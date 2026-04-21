@@ -1,0 +1,2 @@
+ALTER TABLE tasks ADD COLUMN repeat_rule VARCHAR(255);
+ALTER TABLE tasks ADD COLUMN next_run_at TIMESTAMP;
