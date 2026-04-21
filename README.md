@@ -98,21 +98,21 @@ http://localhost:8080/swagger/openapi.json
 - **Валидация cron-выражений:** используется библиотека `robfig/cron/v3`. Некорректный синтаксис приводит к ошибке `400 Bad Request`.
 - **Автоматический расчёт `next_run_at`:** при задании или изменении правила вычисляется ближайшее будущее время запуска относительно текущего момента (UTC).
 - **Миграции БД:** добавлен файл `0002_add_repeat_rule.up.sql` для эволюции схемы без потери данных.
-- **Документация OpenAPI:** спецификация (`openapi.json`) актуализирована — схемы `CreateTaskRequest`, `UpdateTaskRequest` и `Task` включают поля периодичности.
+- **Документация OpenAPI:** спецификация (`openapi.json`) актуализирована - схемы `CreateTaskRequest`, `UpdateTaskRequest` и `Task` включают поля периодичности.
 
 ### Принятые допущения
 
 - Правила интерпретируются в часовом поясе **UTC**.
 - `next_run_at` вычисляется один раз при создании/обновлении; фоновый исполнитель (scheduler) в текущей версии отсутствует.
 - Пустая строка в `repeat_rule` при обновлении трактуется как удаление правила.
-- Статус задачи по умолчанию — `"new"`.
+- Статус задачи по умолчанию - `"new"`.
 
 ### Затронутые компоненты
 
-- `internal/domain/task/task.go` — расширение сущности `Task`
-- `internal/usecase/task/` — логика расчёта и валидации
-- `internal/repository/postgres/task.go` — SQL-запросы и сканирование новых полей
-- `internal/scheduler/cron.go` — обёртка над `robfig/cron/v3`
-- `internal/transport/http/handlers/` — обработка `repeat_rule` в DTO
-- `migrations/` — новый файл миграции
-- `internal/transport/http/docs/openapi.json` — актуализация схем
+- `internal/domain/task/task.go` - расширение сущности `Task`
+- `internal/usecase/task/` - логика расчёта и валидации
+- `internal/repository/postgres/task.go` - SQL-запросы и сканирование новых полей
+- `internal/scheduler/cron.go` - обёртка над `robfig/cron/v3`
+- `internal/transport/http/handlers/` - обработка `repeat_rule` в DTO
+- `migrations/` - новый файл миграции
+- `internal/transport/http/docs/openapi.json` - актуализация схем
